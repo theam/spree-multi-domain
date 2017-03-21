@@ -16,14 +16,13 @@ describe Spree::Admin::ProductsController do
       @store = FactoryGirl.create(:store)
     end
 
-    describe "when stores is an empty string" do
+    describe "when no stores are selected" do
       it "clears stores if they previously existed" do
         @product.stores << @store
         spree_put :update,
           id: @product.to_param,
           product: {
-            name: @product.name,
-            store_ids: ''
+            name: @product.name
           }
 
         expect(@product.reload.store_ids).to be_empty
